@@ -44,7 +44,7 @@ Node.js version >= v18.17.0
 
 For detailed information about integrating CSPR.Click with your Next.js app, visit the [CSPR.Click website](https://cspr.click/).
 
-Thanks to [@Charlie85270](https://github.com/Charlie85270) for this contribution!
+Thanks to  [thebadking](https://github.com/thebadking) and [@Charlie85270](https://github.com/Charlie85270) for this contribution!
 
 ## Deployment
 
