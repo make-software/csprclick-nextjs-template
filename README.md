@@ -16,6 +16,12 @@ This project demonstrates how to integrate [CSPR.Click](https://cspr.click/) wit
    cd my-app
    ```
 
+Node.js version >= v18.17.0
+
+   ```bash
+   npm run dev
+   ```
+
 3. **Install Dependencies** (if not already installed during project creation):
 
    ```bash
