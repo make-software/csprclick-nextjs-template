@@ -7,7 +7,7 @@ This project demonstrates how to integrate [CSPR.click](https://cspr.click/) wit
 1. **Create a New Project Using This Template**:
 
    ```bash
-   npx create-next-app@latest -e https://github.com/make-software/csprclick-nextjs-template
+   npx create-next-app@10.0.2 -e https://github.com/make-software/csprclick-nextjs-template
    ```
 
 2. **Navigate to Your Project Directory**:
