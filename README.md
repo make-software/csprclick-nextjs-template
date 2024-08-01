@@ -1,6 +1,6 @@
-# Cspr.Click Integration with Next.js App Router
+# CSPR.click Integration with Next.js App Router
 
-This project demonstrates how to integrate [CSPR.Click](https://cspr.click/) with the Next.js app router.
+This project demonstrates how to integrate [CSPR.click](https://cspr.click/) with the Next.js app router.
 
 ## Getting Started
 
@@ -40,9 +40,9 @@ Node.js version >= v18.17.0
 
    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Casper.Click Integration
+## CSPR.click Integration
 
-For detailed information about integrating CSPR.Click with your Next.js app, visit the [CSPR.Click website](https://cspr.click/).
+For detailed information about integrating CSPR.click with your Next.js app, visit the [CSPR.click website](https://cspr.click/).
 
 Thanks to  [thebadking](https://github.com/thebadking) and [@Charlie85270](https://github.com/Charlie85270) for this contribution!
 
