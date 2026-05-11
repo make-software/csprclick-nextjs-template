@@ -10,8 +10,7 @@ const DARK_MODE = 'dark';
 
 const defaultState: AppState = {
   csprTheme: DARK_MODE,
-  setCsprTheme: () => {
-  }
+  setCsprTheme: () => {}
 };
 
 const AppContext = React.createContext<AppState>(defaultState);

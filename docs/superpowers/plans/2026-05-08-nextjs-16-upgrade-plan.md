@@ -12,19 +12,20 @@
 
 ## File Structure
 
-| File | Action | Responsibility |
-|---|---|---|
-| `package.json` | Modify | Update dependency versions for Next.js, React, ESLint config, and type definitions |
-| `package-lock.json` | Delete & regenerate | Lock file must be rebuilt for new dependency tree |
-| `node_modules/` | Delete & regenerate | Clean install ensures no stale transitive dependencies |
-| `next.config.mjs` | Potentially modify | May need updates for Next.js 16 compatibility |
-| `tsconfig.json` | Potentially modify | May need updates for React 19 type resolution |
+| File                | Action              | Responsibility                                                                     |
+| ------------------- | ------------------- | ---------------------------------------------------------------------------------- |
+| `package.json`      | Modify              | Update dependency versions for Next.js, React, ESLint config, and type definitions |
+| `package-lock.json` | Delete & regenerate | Lock file must be rebuilt for new dependency tree                                  |
+| `node_modules/`     | Delete & regenerate | Clean install ensures no stale transitive dependencies                             |
+| `next.config.mjs`   | Potentially modify  | May need updates for Next.js 16 compatibility                                      |
+| `tsconfig.json`     | Potentially modify  | May need updates for React 19 type resolution                                      |
 
 ---
 
 ### Task 1: Update Core Dependencies in package.json
 
 **Files:**
+
 - Modify: `package.json`
 
 - [ ] **Step 1: Update dependency versions**
@@ -60,6 +61,7 @@
 ### Task 2: Clean Install Dependencies
 
 **Files:**
+
 - Delete: `package-lock.json`
 - Delete: `node_modules/`
 
@@ -78,6 +80,7 @@
   **Expected:** Install completes with zero errors. If peer dependency warnings appear for `@make-software/csprclick-*` packages, note them but do not use `--legacy-peer-deps` yet — only use it if Step 3 fails.
 
   **If install fails due to peer deps:**
+
   ```bash
   npm install --legacy-peer-deps
   ```
@@ -89,6 +92,7 @@
   ```
 
   **Expected output:**
+
   ```
   csprclick-nextjs-template@0.1.0
   ├── next@16.2.6
@@ -108,6 +112,7 @@
 ### Task 3: Verify and Fix Build
 
 **Files:**
+
 - Potentially modify: `next.config.mjs`, `tsconfig.json`, or any source file causing errors
 
 - [ ] **Step 1: Run production build**
@@ -123,17 +128,20 @@
   Common failures and fixes:
 
   - **Styled-components v5 incompatibility with React 19:**
+
     - Upgrade `styled-components` to `^6.1.0` in `package.json`
     - Upgrade `@types/styled-components` to `^5.1.34` (latest) or remove if v6 includes types
     - Run `npm install` again
     - Re-run `npm run build`
 
   - **TypeScript type errors from `@types/react` vs React 19 built-in types:**
+
     - Try removing `@types/react` and `@types/react-dom` from `devDependencies`
     - Run `npm install` again
     - Re-run `npm run build`
 
   - **Next.js config warnings:**
+
     - If `next.config.mjs` produces warnings, consult the error message and update accordingly. Next.js 16 may deprecate certain config options.
 
   - **ESLint config incompatibility:**
@@ -153,6 +161,7 @@
 ### Task 4: Verify Lint Passes
 
 **Files:**
+
 - Potentially modify: any source file with lint errors
 
 - [ ] **Step 1: Run linter**
@@ -166,11 +175,13 @@
 - [ ] **Step 2: If lint fails, fix errors**
 
   Auto-fix where possible:
+
   ```bash
   npm run lint:fix
   ```
 
   Manually fix any remaining errors. Common issues:
+
   - React 19 may deprecate certain JSX patterns
   - ESLint 9 config format changes (`eslint.config.mjs` instead of `.eslintrc`)
 
@@ -186,6 +197,7 @@
 ### Task 5: Runtime Smoke Test
 
 **Files:**
+
 - None (verification only)
 
 - [ ] **Step 1: Start development server**
@@ -201,6 +213,7 @@
   Open `http://localhost:3000` in a browser.
 
   **Verify:**
+
   - Page loads without a blank screen
   - No critical errors in the browser console (F12 → Console)
   - CSPR.click integration renders correctly
@@ -215,6 +228,7 @@
 ### Task 6: Final Verification & Summary Commit
 
 **Files:**
+
 - Potentially modify: `README.md` (update Node.js version requirements if needed)
 
 - [ ] **Step 1: Run full verification suite**

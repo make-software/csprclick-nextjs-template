@@ -17,28 +17,28 @@ Upgrade the `csprclick-nextjs-template` project from Next.js 14.2.4 / React 18 t
 
 ### Core Framework
 
-| Package | Current | Target | Notes |
-|---|---|---|---|
-| `next` | `14.2.4` | `16.2.6` | Latest stable |
-| `react` | `^18` | `^19` | React 19 is required by Next.js 16 |
-| `react-dom` | `^18` | `^19` | React 19 is required by Next.js 16 |
-| `eslint-config-next` | `14.2.4` | `16.2.6` | Keep in sync with Next.js |
+| Package              | Current  | Target   | Notes                              |
+| -------------------- | -------- | -------- | ---------------------------------- |
+| `next`               | `14.2.4` | `16.2.6` | Latest stable                      |
+| `react`              | `^18`    | `^19`    | React 19 is required by Next.js 16 |
+| `react-dom`          | `^18`    | `^19`    | React 19 is required by Next.js 16 |
+| `eslint-config-next` | `14.2.4` | `16.2.6` | Keep in sync with Next.js          |
 
 ### Type Definitions
 
-| Package | Current | Target | Notes |
-|---|---|---|---|
-| `@types/react` | `^18` | `^19` | React 19 types; may be removable if React 19 ships built-in types |
-| `@types/react-dom` | `^18` | `^19` | React 19 types; may be removable if React 19 ships built-in types |
+| Package            | Current | Target | Notes                                                             |
+| ------------------ | ------- | ------ | ----------------------------------------------------------------- |
+| `@types/react`     | `^18`   | `^19`  | React 19 types; may be removable if React 19 ships built-in types |
+| `@types/react-dom` | `^18`   | `^19`  | React 19 types; may be removable if React 19 ships built-in types |
 
 ### Keep As-Is (Unless Build Errors Force Changes)
 
-| Package | Version | Risk Assessment |
-|---|---|---|
-| `styled-components` | `^5.3.9` | React 19 compatibility unknown; upgrade to v6 if v5 fails |
-| `react-query` | `^3.39.3` | Likely compatible; no known breaking changes with React 19 |
-| `next-themes` | `^0.3.0` | Likely compatible; test during verification |
-| `@make-software/csprclick-*` | `^1.5.0` | Third-party; may need `--legacy-peer-deps` if peer deps conflict |
+| Package                      | Version   | Risk Assessment                                                  |
+| ---------------------------- | --------- | ---------------------------------------------------------------- |
+| `styled-components`          | `^5.3.9`  | React 19 compatibility unknown; upgrade to v6 if v5 fails        |
+| `react-query`                | `^3.39.3` | Likely compatible; no known breaking changes with React 19       |
+| `next-themes`                | `^0.3.0`  | Likely compatible; test during verification                      |
+| `@make-software/csprclick-*` | `^1.5.0`  | Third-party; may need `--legacy-peer-deps` if peer deps conflict |
 
 ## Breaking Changes Analysis
 
@@ -52,9 +52,11 @@ Upgrade the `csprclick-nextjs-template` project from Next.js 14.2.4 / React 18 t
 ### Potential Risks
 
 1. **React 19 + `styled-components` v5:**
+
    - React 19 may require `styled-components` v6. If the build or runtime fails, the mitigation is to upgrade `styled-components` to v6 and update `@types/styled-components` accordingly.
 
 2. **React 19 Type Definitions:**
+
    - React 19 may ship its own type definitions. We will attempt to keep `@types/react` and `@types/react-dom` at v19; if they conflict with built-in types, we will remove them.
 
 3. **Third-Party Peer Dependencies:**
