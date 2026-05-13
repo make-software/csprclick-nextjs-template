@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Section } from './Section';
 import { AccountIdenticon, useClickRef } from '@make-software/csprclick-ui';
-import { SendResult } from '@make-software/csprclick-core-client';
+import { SendResult } from '@make-software/csprclick-core-types';
 import makeTransferDeploy from './TransferDeploy';
 import Prism from 'prismjs';
 

@@ -1,4 +1,4 @@
-import { CLPublicKey, DeployUtil } from 'casper-js-sdk';
+import { PublicKey, Deploy, DeployHeader, ExecutableDeployItem, TransferDeployItem } from 'casper-js-sdk';
 
 export default function makeTransferDeploy(
   senderPublicKeyHex: string | null,
@@ -6,20 +6,19 @@ export default function makeTransferDeploy(
   amountMotes: string,
   chainName: string
 ) {
-  const senderPublicKey = CLPublicKey.fromHex(senderPublicKeyHex?.toLowerCase() || '');
-  const recipientPublicKey = CLPublicKey.fromHex(recipientPublicKeyHex);
+  const senderPublicKey = PublicKey.fromHex(senderPublicKeyHex?.toLowerCase() || '');
+  const recipientPublicKey = PublicKey.fromHex(recipientPublicKeyHex);
 
-  const deployParams = new DeployUtil.DeployParams(senderPublicKey, chainName);
+  const header = DeployHeader.default();
+  header.chainName = chainName;
+  header.account = senderPublicKey;
 
-  const session = DeployUtil.ExecutableDeployItem.newTransfer(
-    amountMotes,
-    recipientPublicKey,
-    undefined,
-    '1' // transfer id
-  );
+  const transferItem = TransferDeployItem.newTransfer(amountMotes, recipientPublicKey, null, '1');
+  const session = new ExecutableDeployItem();
+  session.transfer = transferItem;
 
-  const payment = DeployUtil.standardPayment('100000000');
+  const payment = ExecutableDeployItem.standardPayment('100000000');
 
-  const deploy = DeployUtil.makeDeploy(deployParams, session, payment);
-  return JSON.stringify(DeployUtil.deployToJson(deploy).deploy);
+  const deploy = Deploy.makeDeploy(header, payment, session);
+  return JSON.stringify(Deploy.toJSON(deploy));
 }
