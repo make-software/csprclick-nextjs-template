@@ -5,9 +5,11 @@ This project demonstrates how to integrate [CSPR.click](https://cspr.click/) wit
 ## Getting Started
 
 1. **Create a New Project Using This Template**:
+create-next-app versions track Next.js versions, so use @16.2.6 or simply @latest.
+
 
    ```bash
-   npx create-next-app@10.0.2 -e https://github.com/make-software/csprclick-nextjs-template
+   npx create-next-app@latest -e https://github.com/make-software/csprclick-nextjs-template
    ```
 
 2. **Navigate to Your Project Directory**:
@@ -16,7 +18,7 @@ This project demonstrates how to integrate [CSPR.click](https://cspr.click/) wit
    cd my-app
    ```
 
-Node.js version >= v18.17.0
+Node.js version >= v20.9.0
 
 ```bash
 npm run dev
@@ -25,11 +27,10 @@ npm run dev
 3. **Install Dependencies** (if not already installed during project creation):
 
    ```bash
-   npm install
+   npm install --legacy-peer-deps
    # or
    yarn install
    ```
-
 4. **Run the Development Server**:
 
    ```bash
