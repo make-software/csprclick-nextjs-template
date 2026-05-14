@@ -18,9 +18,9 @@ This project demonstrates how to integrate [CSPR.click](https://cspr.click/) wit
 
 Node.js version >= v18.17.0
 
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
 3. **Install Dependencies** (if not already installed during project creation):
 
@@ -44,7 +44,7 @@ Node.js version >= v18.17.0
 
 For detailed information about integrating CSPR.click with your Next.js app, visit the [CSPR.click website](https://cspr.click/).
 
-Thanks to  [thebadking](https://github.com/thebadking) and [@Charlie85270](https://github.com/Charlie85270) for this contribution!
+Thanks to [thebadking](https://github.com/thebadking) and [@Charlie85270](https://github.com/Charlie85270) for this contribution!
 
 ## Deployment
 

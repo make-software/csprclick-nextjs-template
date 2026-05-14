@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Section } from './Section';
 import { AccountIdenticon, useClickRef } from '@make-software/csprclick-ui';
-import { SendResult } from '@make-software/csprclick-core-client';
-import makeTransferDeploy from './TransferDeploy';
+import { AccountType, SendResult } from '@make-software/csprclick-core-types';
 import Prism from 'prismjs';
+import { NativeTransferBuilder, PublicKey } from 'casper-js-sdk';
 
 export const StyledTD = styled.td(({ theme }) =>
   theme.withMedia({
@@ -34,7 +34,7 @@ const AccountRow = styled.div(({ theme }) =>
 );
 
 export const BuyMeACoffee = () => {
-  const [deployHash, setDeployHash] = useState<string | undefined>(undefined);
+  const [transactionHash, setTransactionHash] = useState<string | undefined>(undefined);
   const recipientPk = '0202dd8d878df6f2ecd0c9c012fd7cecc830f3623ecabeb914223c233c2c4046dcbb';
 
   const clickRef = useClickRef();
@@ -44,25 +44,35 @@ export const BuyMeACoffee = () => {
     Prism.highlightAll();
   }, []);
 
-  const handleSignTransaction = async () => {
+  const handleSignTransaction = async (account: AccountType) => {
     const sender = activeAccount?.public_key?.toLowerCase() || '';
-    const deploy = makeTransferDeploy(sender, recipientPk, '50' + '000000000', 'casper-test');
-    clickRef
-      ?.send(deploy, sender)
-      .then((res: SendResult | undefined) => {
-        if (res?.deployHash) {
-          setDeployHash(res.deployHash);
-          alert('Transaction sent successfully: ' + res.deployHash);
-        } else if (res?.cancelled) {
-          alert('Sign cancelled');
-        } else {
-          alert('Error in send(): ' + res?.error + '\n' + res?.errorData);
-        }
-      })
-      .catch((err: any) => {
-        alert('Error: ' + err);
-        throw err;
-      });
+    if (sender) {
+      const transaction = new NativeTransferBuilder()
+        .from(PublicKey.fromHex(account.public_key))
+        .target(PublicKey.fromHex(recipientPk))
+        .amount('50' + '000000000')
+        .id(1)
+        .chainName(window.csprclick.chainName || 'casper-test')
+        .payment(100_000_000)
+        .build();
+
+      clickRef
+        ?.send(transaction.toJSON() as object, sender)
+        .then((res: SendResult | undefined) => {
+          if (res?.transactionHash) {
+            setTransactionHash(res.transactionHash);
+            alert('Transaction sent successfully: ' + res.transactionHash);
+          } else if (res?.cancelled) {
+            alert('Sign cancelled');
+          } else {
+            alert('Error in send(): ' + res?.error + '\n' + res?.errorData);
+          }
+        })
+        .catch((err: any) => {
+          alert('Error: ' + err);
+          throw err;
+        });
+    }
   };
 
   return (
@@ -73,8 +83,8 @@ export const BuyMeACoffee = () => {
           buying a coffee for Alice with testnet CSPR tokens.
         </span>
         <span>
-          First, build a transfer transaction deploy. The <code>casper-js-sdk</code> is available in
-          this template to do so. Refer to the official{' '}
+          First, build a transfer transaction. The <code>casper-js-sdk</code> is available in this
+          template to do so. Refer to the official{' '}
           <a href={'https://casper-ecosystem.github.io/casper-js-sdk/'}>SDK documentation</a> for
           more information and examples of usage.
         </span>
@@ -85,8 +95,8 @@ export const BuyMeACoffee = () => {
         </span>
         <span>
           Notice in the example that your application must handle different possible responses. Your
-          app may show a success message with the deploy hash when the transaction has been sent,
-          but react appropriately when the user rejects or the node reject the transaction.
+          app may show a success message with the transaction hash when the transaction has been
+          sent, but react appropriately when the user rejects or the node reject the transaction.
         </span>
       </Section>
       <Section>
@@ -94,11 +104,11 @@ export const BuyMeACoffee = () => {
           <code className={'language-javascript'}>
             {`const handleSignTransaction = async () => {
   const sender = activeAccount?.public_key?.toLowerCase();
-  const deploy = makeTransferDeploy(sender, recipientPk, '50000000000', 'casper-test');
-  clickRef?.send(deploy, sender)
+  const tx = makeTransferTransaction(sender, recipientPk, '50000000000', 'casper-test');
+  clickRef?.send(tx, sender)
     .then(res => {
-	  if (res?.deployHash) {
-	  	alert('Transaction sent successfully: ' + res.deployHash);
+	  if (res?.transactionHash) {
+	  	alert('Transaction sent successfully: ' + res.transactionHash);
 	  } else if (res?.cancelled) {
 	  	alert('Sign cancelled');
 	  } else {
@@ -135,16 +145,18 @@ export const BuyMeACoffee = () => {
             <tr>
               <td colSpan={2}>
                 {activeAccount?.public_key && (
-                  <button onClick={() => handleSignTransaction()}>Sign transaction</button>
+                  <button onClick={() => handleSignTransaction(activeAccount)}>
+                    Sign transaction
+                  </button>
                 )}
               </td>
             </tr>
           </tbody>
         </table>
 
-        {deployHash && (
+        {transactionHash && (
           <a
-            href={`${clickRef?.appSettings?.csprlive_url}deploy/${deployHash}`}
+            href={`${clickRef?.appSettings?.csprlive_url}deploy/${transactionHash}`}
             target="_blank"
             rel="noreferrer"
           >
