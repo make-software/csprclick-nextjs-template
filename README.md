@@ -5,7 +5,6 @@ This project demonstrates how to integrate [CSPR.click](https://cspr.click/) wit
 ## Getting Started
 
 1. **Create a New Project Using This Template**:
-create-next-app versions track Next.js versions, so use @16.2.6 or simply @latest.
 
 
    ```bash
